@@ -119,6 +119,23 @@ public:
 
 int Product::productCount = 0;
 
+double reorderCost(int qty, double unitPrice){
+    return qty * unitPrice;
+}
+
+double reorderCost(double qty, double unitPrice){
+    return qty * unitPrice;
+}
+
+double reorderCost(int qty, double unitPrice, double taxRate){
+    double base = reorderCost(int qty, double unitPrice);
+    return base + (base * taxRate);
+}
+
+double applyDiscount(double price , double discountPercent = 10.0){
+    return price * (1.0 - discountPercent/100.0);
+}
+
 int main() {
     Product inventory[5];
 
@@ -167,6 +184,13 @@ int main() {
         cout << "None";
     }
     cout << endl;
+
+    cout << "Int Qty Cost: " << reorderCost(10, 15.0) << endl;
+    cout << "Double Qty Cost: " << reorderCost(10.5, 15.0) << endl;
+    cout << "Cost with Tax: " << reorderCost(10, 15.0, 0.05) << endl;
+
+    cout << "Default 10% Discount: " << applyDiscount(100.0) << endl;
+    cout << "Custom 25% Discount: " << applyDiscount(100.0, 25.0) << endl;
 
     return 0;
 }
